@@ -1,0 +1,38 @@
+version: '2.3'
+
+services:
+
+    husarnet:
+        image: husarnet/husarnet
+        ipc: shareable
+        restart: unless-stopped
+        volumes:
+            - /var/lib/husarnet  # This will persist your Husarnet Client keys, thus IP of the container will be stable/the same between (re)boots
+        sysctls:
+            - net.ipv6.conf.all.disable_ipv6=0  # Husarnet is using IPv6 for the internal connections
+  
+  ros2router:
+    image: husarnet/ros2router:1.6.0
+    network_mode: host
+    volumes:
+      # see filter config at https://github.com/husarnet/husarnet-ros2router
+      - ./filter.yaml:/filter.yaml
+    restart: unless-stopped
+    environment:
+      - EXIT_IF_HOST_TABLE_CHANGED=TRUE
+      - ROS_LOCALHOST_ONLY=0   # enables ROS2 Router local LAN participant
+      - ROS_DOMAIN_ID=${ROS_DOMAIN_ID}
+
+    adv-rob-rpi:
+        build: 
+            context: .
+            dockerfile: Dockerfile
+        cap_add:
+            - NET_ADMIN
+        devices:
+            - /dev/net/tun
+        environment: 
+            - HOSTNAME=operator
+            - JOINCODE # create .env file in the same folder as Dockerfile and specify JOINCODE there
+        command: ros2 run demo_nodes_cpp listener
+        network_mode: host
