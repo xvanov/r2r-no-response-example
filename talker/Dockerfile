@@ -5,7 +5,8 @@ SHELL ["/bin/bash", "-c"]
 
 # build demo ROS 2 nodes
 RUN apt update && apt install -y \
-        ros-$ROS_DISTRO-demo-nodes-cpp
+        ros-$ROS_DISTRO-demo-nodes-cpp \
+        ros-humble-rmw-cyclonedds-cpp
 
 # install tools
 RUN DEBIAN_FRONTEND=noninteractive apt-get update -y && \
