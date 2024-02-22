@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+
+    ros2router:
+        image: husarnet/ros2router:1.6.0
+        restart: unless-stopped
+        volumes: 
+            - ./filter.yml:/filter.yml
+        environment:
+            - EXIT_IF_HOST_TABLE_CHANGED=TRUE # if new Husarnet peer is detected restart the DDS Router to apply a new initial-peers config
+            - ROS_LOCALHOST_ONLY=0 # enables ROS2 Router local LAN participant
+        network_mode: host
+
+    talker:
+        build: 
+            context: ./
+            dockerfile: Dockerfile
+        devices:
+            - /dev/net/tun
+        volumes:
+            - /var/lib/husarnet:/var/lib/husarnet
+        environment:
+            - HUSARNET_JOIN_CODE=${HUSARNET_JOIN_CODE}
+            - HUSARNET_HOSTNAME=${HUSARNET_HOSTNAME}
+        cap_add:
+            - NET_ADMIN
+        network_mode: host
+        command: ros2 run demo_nodes_cpp talker

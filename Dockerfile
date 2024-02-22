@@ -1,4 +1,5 @@
-FROM osrf/ros:galactic-desktop
+#FROM arm64v8/ros:humble-ros-base-jammy
+FROM ros:humble-ros-base-jammy
 
 SHELL ["/bin/bash", "-c"]
 
@@ -6,13 +7,18 @@ SHELL ["/bin/bash", "-c"]
 RUN apt update && apt install -y \
         ros-$ROS_DISTRO-demo-nodes-cpp
 
-COPY husarnet2/custom_ros2/ros2_ws ros2_ws/
-COPY husarnet2/custom_ros2/ros_entrypoint.sh /
+# install tools
+RUN DEBIAN_FRONTEND=noninteractive apt-get update -y && \
+    apt-get install -y curl \
+    iproute2 \
+    iputils-ping \
+    vim && \
+    rm -rf /var/lib/apt/lists/*
 
-# build custom ROS 2 nodes
-RUN cd ros2_ws && \
-    source /opt/ros/galactic/setup.bash && \
-    colcon build
 
-ENTRYPOINT ["/ros_entrypoint.sh"]   
+# install husarnet
+RUN curl -s https://install.husarnet.com/install.sh | bash
+
+COPY entrypoint.sh /
+ENTRYPOINT ["/entrypoint.sh"]   
 CMD ["bash"]
