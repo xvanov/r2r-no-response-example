@@ -9,7 +9,7 @@ services:
         network_mode: service:husarnet
         volumes:
             # see filter config at https://github.com/husarnet/husarnet-ros2router
-            - ./filter.yaml:/filter.yaml
+            - ./ros2router/filter.yaml:/filter.yaml
         restart: unless-stopped
         environment:
             - EXIT_IF_HOST_TABLE_CHANGED=TRUE
