@@ -14,7 +14,7 @@ services:
         environment:
             - EXIT_IF_HOST_TABLE_CHANGED=TRUE
             - ROS_LOCALHOST_ONLY=0   # enables ROS2 Router local LAN participant
-            - ROS_DOMAIN_ID=${ROS_DOMAIN_ID}
+            - ROS_DOMAIN_ID
     
     husarnet:
         image: husarnet/husarnet
@@ -29,16 +29,20 @@ services:
         devices:
             - /dev/net/tun
         environment:
-            - HOSTNAME=listener
-            - JOINCODE
-            - ROS_DOMAIN_ID=${ROS_DOMAIN_ID}
             - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-                        
+              # set in .env
+            - HUSARNET_JOIN_CODE
+            - HUSARNET_HOSTNAME
+             
     listener:
         build: 
             context: ./listener
             dockerfile: Dockerfile
         devices:
             - /dev/net/tun
+        environment:
+            - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+              # set in .env
+            - ROS_DOMAIN_ID
         command: ros2 run demo_nodes_cpp listener
         network_mode: service:husarnet
