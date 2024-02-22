@@ -6,7 +6,7 @@ services:
         image: husarnet/ros2router:1.6.0
         restart: unless-stopped
         volumes: 
-            - ./filter.yml:/filter.yml
+            - ./filter.yaml:/filter.yaml
         environment:
             - EXIT_IF_HOST_TABLE_CHANGED=TRUE # if new Husarnet peer is detected restart the DDS Router to apply a new initial-peers config
             - ROS_LOCALHOST_ONLY=0 # enables ROS2 Router local LAN participant

@@ -1,10 +1,10 @@
 allowlist:
-        - name: "rt/*"
-        - name: "rr/*"
-        - name: "rq/*"
-        - name: "rp/*"
         - name: "ra/*"
-        - name: "rn/*"
+        - name: "rs/*"
+        - name: "rp/*"
+        - name: "rq/*"
+        - name: "rr/*"
+        - name: "rt/*"
 blocklist:
 builtin-topics: []
 
