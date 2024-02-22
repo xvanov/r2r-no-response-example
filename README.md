@@ -16,7 +16,7 @@
 # Setup if needed in docker
 husarnet:
 husarnet join \
-fc94:b01d:1803:8dd8:b293:5c7d:7639:932a/KYWgEEvyuzWC92dLJtMbKi \
+fc94:b01d:1803:8dd8:b293:5c7d:7639:932a/JOINCODE \
 rpi
 
 talker:
@@ -25,6 +25,10 @@ sudo apt-get install ros-galactic-demo-nodes-cpp
 . /opt/ros/galactic/setup.bash
 ros2 run demo_nodes_cpp talker
 
-run in backgroun
+run in background
 apt-get install screen
 
+
+# More resources:
+- https://github.com/husarnet/husarnet-ros2router
+- https://github.com/DominikN/husarnet-ros2-bridge-lan
