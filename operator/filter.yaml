@@ -1,0 +1,7 @@
+allowlist:
+  - name: "rt/*"
+  - name: "rq/*"
+  - name: "rr/*"
+  - name: "rs/*"
+blocklist: []
+builtin-topics: []
