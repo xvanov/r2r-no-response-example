@@ -29,7 +29,6 @@ services:
         devices:
             - /dev/net/tun
         environment:
-            - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
               # set in .env
             - HUSARNET_JOIN_CODE
             - HUSARNET_HOSTNAME
