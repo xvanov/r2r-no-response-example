@@ -43,5 +43,5 @@ services:
             - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
               # set in .env
             - ROS_DOMAIN_ID
-        command: ros2 run demo_nodes_cpp listener
+        command: ros2 run demo_nodes_cpp add_two_ints_client
         network_mode: service:husarnet
