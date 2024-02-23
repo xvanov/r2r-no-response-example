@@ -1,3 +1,26 @@
+# Start
+
+Given two devices we can communicate via ros2 between them over husarnet with ros2 router handling the dds communication and filtering. 
+
+On both devices setup `.env` based on `.env.template` with a `JOIN_CODE`: from husarnet. 
+
+On device 1:
+```
+source opt/ros/humble/setup.bash
+ros2 run demo_nodes_cpp add_two_ints_server
+```
+
+On device 2:
+```
+source opt/ros/humble/setup.bash
+ros2 run demo_nodes_cpp add_two_ints_client
+```
+
+# Issue with service calls
+
+Currently something is wrong with this config, since service call requests give no responses back to the requester device. 
+
+
 # Concepts to know before 
 - Husarnet: peer-to-peer VPN that allows devices to connect over the interent as if they were on the same local network
 - IPC: inter-process communication, a set of mechanisms to ensure efficient data exchange
