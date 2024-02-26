@@ -1,7 +1,7 @@
 name: ${CHATTER_ROLE:-listener}
 services:
   add_two_ints:
-    build: .
+    build: ./debug
     network_mode: host
     environment:
       - ROS_DOMAIN_ID=${ROS_DOMAIN_ID}
@@ -9,7 +9,7 @@ services:
     command: ros2 run demo_nodes_cpp add_two_ints_${ADD_TWO_INTS_ROLE:-server}
 
   chatter:
-    build: .
+    build: ./debug
     network_mode: host
     environment:
       - ROS_DOMAIN_ID=${ROS_DOMAIN_ID}
